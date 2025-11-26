@@ -12,7 +12,8 @@ Route::get('/about', function () {
     return view('about', ["name" => "Dicky", "title" => "About"]);
 });
 Route::get('/posts', function () {
-    return view('posts', ["title" => "Blog", "posts" => Post::all()]);
+    $posts = Post::with('category', 'author')->latest()->get();
+    return view('posts', ["title" => "Blog", "posts" => $posts]);
 });
 Route::get('/contact', function () {
     return view('contact', ["title" => "Contact"]);
@@ -23,9 +24,12 @@ Route::get('/posts/{post:slug}', function (Post $post) {
 });
 
 Route::get('/author/{user:username}', function (User $user) {
+    // $posts = $user->posts->load('category', 'author');
+
     return view('posts', ["title" => "Articles by " . $user->name, 'posts' => $user->posts]);
 });
 
 Route::get('/category/{category:slug}', function (Category $category) {
+    // $posts = $category->posts->load('author', 'category');
     return view('posts', ["title" => "Articles in " . $category->name, 'posts' => $category->posts]);
 });

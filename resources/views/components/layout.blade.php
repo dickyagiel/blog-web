@@ -10,6 +10,9 @@
     <title>Latihan Blog</title>
 </head>
 <body class="h-full">
+    @yield('content')
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
 <div class="min-h-full">
   <x-nav-bar></x-nav-bar>
 
