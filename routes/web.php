@@ -12,8 +12,9 @@ Route::get('/about', function () {
     return view('about', ["name" => "Dicky", "title" => "About"]);
 });
 Route::get('/posts', function () {
-    $posts = Post::with('category', 'author')->latest()->get();
-    return view('posts', ["title" => "Blog", "posts" => $posts]);
+    // $posts = Post::filter()->latest();
+    return view('posts', ["title" => "Blog", "posts" => Post::filter(request(['search', 'category', 'author']))
+        ->latest()->paginate(12)->withQueryString()]);
 });
 Route::get('/contact', function () {
     return view('contact', ["title" => "Contact"]);
